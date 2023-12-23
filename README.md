@@ -1,2 +1,2 @@
-# explore
+# Explore
 # Groupeffect public page
