@@ -74,7 +74,7 @@ export default defineConfig({
   },
   build: {
     // outDir: "/app/backend/static",
-    outDir: "dist"
+    outDir: "../docs"
   },
   base: 
   process.env.NODE_ENV === 'production'
