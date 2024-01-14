@@ -79,5 +79,9 @@ export default defineConfig({
   base: 
   process.env.NODE_ENV === 'production'
     ? '/explore/'
-    : '/'
+    : '/',
+  publicPath: 
+  process.env.NODE_ENV === 'production'
+    ? '/explore/'
+    : '/',
 })
