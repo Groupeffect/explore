@@ -48,33 +48,33 @@ export default defineConfig({
   server: {
     port: 3000,
     // TODO
-    proxy: {
-      '/api': {
-        target: process.env.NODE_ENV === 'production'
-        ? 'http://groupeffect.app/api'
-        : 'http://localhost/api',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-      '/media': {
-        target: process.env.NODE_ENV === 'production'
-        ? 'http://groupeffect.app/'
-        : 'http://localhost/',
-        changeOrigin: true,
-        // rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-      '/static': {
-        target: process.env.NODE_ENV === 'production'
-        ? 'http://groupeffect.app/'
-        : 'http://localhost/',
-        changeOrigin: true,
-        // rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    }
+    // proxy: {
+    //   '/api': {
+    //     target: process.env.NODE_ENV === 'production'
+    //     ? 'http://groupeffect.app/api'
+    //     : 'http://localhost/api',
+    //     changeOrigin: true,
+    //     rewrite: (path) => path.replace(/^\/api/, ''),
+    //   },
+    //   '/media': {
+    //     target: process.env.NODE_ENV === 'production'
+    //     ? 'http://groupeffect.app/'
+    //     : 'http://localhost/',
+    //     changeOrigin: true,
+    //     // rewrite: (path) => path.replace(/^\/api/, ''),
+    //   },
+    //   '/static': {
+    //     target: process.env.NODE_ENV === 'production'
+    //     ? 'http://groupeffect.app/'
+    //     : 'http://localhost/',
+    //     changeOrigin: true,
+    //     // rewrite: (path) => path.replace(/^\/api/, ''),
+    //   },
+    // }
   },
   build: {
     // outDir: "/app/backend/static",
-    outDir: "../templates/frontend"
+    outDir: "dist"
   },
   base: 
   process.env.NODE_ENV === 'production'
