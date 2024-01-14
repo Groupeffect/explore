@@ -78,6 +78,10 @@ export default defineConfig({
   },
   base: 
   process.env.NODE_ENV === 'production'
-    ? '/static/frontend'
-    : '/'
+    ? '/explore/'
+    : '/',
+  publicPath: 
+  process.env.NODE_ENV === 'production'
+    ? '/explore/'
+    : '/',
 })
