@@ -3,7 +3,7 @@ export default {
     name: 'PixiMixin',
     data: ()=>({
         tickers: {},
-        pixi: null,
+        pixiApps:[],
         appConfig:{
             antialias: true,
             // transparent: true,
@@ -19,6 +19,7 @@ export default {
             }
         }
     }),
+
     computed: {},
     methods: {
         rN(k=10,n=2){
@@ -47,13 +48,17 @@ export default {
             }
             const pixi = new Application(pixiAppConfig)
             pixiDiv.appendChild(pixi.view)
-            this.pixi = pixi
+            this.pixiApps.push({div:pixiDiv, app:pixi})
             return pixi
         },
         destroyPixiApp(app) {
-            app.destroy({children: true, texture: true, baseTexture: true, })
             // // Destroy children, this is recursive to all children's children
             // app.stage.destroy({children: true, texture: true, baseTexture: true})
+            console.log("destroy 1")
+            if(app && app.stage){
+            console.log("destroy 2")
+                app.destroy({children: true, texture: true, baseTexture: true, })
+            }
             
             // // Destroy the renderer and plugins
             // app.renderer.destroy()
@@ -86,17 +91,33 @@ export default {
             
             return bits // Return the array
         },
+        destroyAllApps(){
+            console.log(this.pixiApps)
+            this.pixiApps.map((e)=>{
+                // e.renderer.destroy()
+                // e.destroy({children: true, texture: true, baseTexture: true, removeView:true})
+                // .removeChild(e.div)
+                e.app.destroy({children: true, texture: true, baseTexture: true})
+                // e.destroy()
+                
+            })
+        }
 
-    },
-    beforeRouteLeave (to, from , next) {
-        this.destroyPixiApp(this.pixi)
-        this.pixi = null
-        next()
-    },
-    beforeRouteEnter (to, from , next) {
-        this.destroyPixiApp(this.pixi)
-        this.pixi = null
-        next()
-    },
+    }
+    // beforeRouteLeave (to, from , next) {
+    //     this.destroyAllApps()
+    //     next()
+    // },
+    // beforeRouteEnter (to, from , next) {
+    //     this.destroyAllApps()
+    //     next()
+    // },
+    // beforeRouteUpdate(to,from,next){
+    //     console.log("RUUU")
+    // },
+    // beforeEach(to,from,next){
+    //     console.log("RUssUU")
+    // }
+
 
 }

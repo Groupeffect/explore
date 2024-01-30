@@ -30,16 +30,16 @@
         },
         "element": {
             "type": "rect",
-            "width": 8, 
-            "height": 8,
+            "width": 6, 
+            "height": 6,
             "maxWidth": 50,
             "maxHeight": 50,
             "minWidth": 1,
             "minHeight": 1,
             "unit": "px",
-            "spacing": 10,
+            "spacing": 8,
             "rows": 20,
-            "cols": 50,
+            "cols": 40,
             "color": "#FFFFFF"
         }
     },

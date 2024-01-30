@@ -24,7 +24,7 @@ const routes = [
             path: 'floatinglogos',
             name: 'FloatingLogos',
             visible: "always",
-            component: () => import('@/components/pixijs/FloatingLogos.vue'),
+            component: () => import('@/components/pixijs/floating/FloatingLogos.vue'),
           }
         ]
       }

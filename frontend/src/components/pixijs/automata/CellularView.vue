@@ -53,7 +53,7 @@ export default {
     },
     methods: {
         go(){
-            this.run(this.pixi, this.configuration, this.ruleSetProp || this.ruleSet)
+            this.run(this.configuration, this.ruleSetProp || this.ruleSet)
         }
     },
     mounted(){
@@ -64,8 +64,12 @@ export default {
         const conf = useRepo(Internal).find("automata-default")
         const cc = conf && conf.data
         this.config = this.configProp || cc || automataConfig.default
-    }
-
+    },
+    // beforeRouteLeave (to, from , next) {
+    //     console.log("leave CellularView")
+    //     this.destroyAllApps()
+    //     next()
+    // }
 }
 </script>
 <style>

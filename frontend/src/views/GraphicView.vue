@@ -9,7 +9,18 @@
                     </v-card-title>
                     <CellularView></CellularView>
                     <v-card-actions>
-                        <v-btn @click="$router.push({name:'CellularView'})">Edit</v-btn>
+                        <v-btn color="success" @click="$router.replace({name:'CellularView'})">Edit</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-col>
+            <v-col>
+                <v-card max-width="500">
+                    <v-card-title>
+                        Floating Logos
+                    </v-card-title>
+                    
+                    <v-card-actions>
+                        <v-btn color="success" @click="$router.replace({name:'FloatingLogos'})">Show</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -17,7 +28,7 @@
     </div>
 </template>
 <script>
-import CellularView from '@/components/pixijs/automata/CellularView.vue';
+import CellularView from '@/components/pixijs/automata/CellularView.vue'
 
 export default {
     name: 'GraphicView',
@@ -26,7 +37,8 @@ export default {
     data: ()=>({}),
     computed: {},
     methods: {},
-    created(){}
+    created(){},
+
 }
 </script>
 <style>

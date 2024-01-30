@@ -126,9 +126,9 @@
                 </v-card>
             </v-col>
         </v-row>
-        <v-card-action>
+        <v-card-actions>
             <v-btn size="small" color="success" block @click="config.updated = Date.now()">apply</v-btn>
-        </v-card-action>
+        </v-card-actions>
     </v-card>
 </template>
 <script>

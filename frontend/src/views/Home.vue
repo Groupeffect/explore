@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row align="center" class="text-center">
-      <v-col cols="2" v-for='(e,k) in createCards()' :key='k'>
+      <v-col cols="3" v-for='(e,k) in createCards()' :key='k'>
       
         <CellularView :configProp="e" :ruleSetProp="e.ruleSet"></CellularView>
       </v-col>
@@ -31,7 +31,7 @@ export default {
 
   methods: {
 
-    createCards(amount=15, offset=100) {
+    createCards(amount=4, offset=Math.random()*100 ) {
       return Array.from(Array(amount).keys()).map((e)=>({
         ...this.automataConfig.small, id:`auto-${e}`, element:{...this.automataConfig.small.element, color: this.rC()}, ruleSet: this.ruleSet(e+offset)
       }))
@@ -47,7 +47,14 @@ export default {
   mounted(){
     // const config = useRepo(Internal).find('graphics')
 
+  },
+
+  beforeRouteLeave (to, from , next) {
+    console.log("leave home")
+    this.destroyAllApps()
+    next()
   }
+
 }
 </script>
 <style>

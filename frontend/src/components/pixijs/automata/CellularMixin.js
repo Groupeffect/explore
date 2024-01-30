@@ -1,10 +1,12 @@
-import { Graphics } from 'pixi.js'
+import { Application, Graphics } from 'pixi.js'
 import automataConfig from "@/assets/configs/automata.json"
+
 
 export default {
     name: 'CellularMixin',
     data:()=>({
-        rule: 57
+        rule: 57,
+        pixi: null
     }),
     computed: {
         ruleSet(){
@@ -15,12 +17,25 @@ export default {
         }
     },
     methods: {
-        run(pixi, config, ruleSet) {
-            if(pixi){
-                this.destroyPixiApp(pixi)
+        stagePixi(config){
+            const pixiDiv = document.getElementById(config.id)
+            const pixiAppConfig = {
+                ...config.app,
+                resizeTo: pixiDiv,
+                autoResize: true,
+            }
+            const pixi = new Application(pixiAppConfig)
+            pixiDiv.appendChild(pixi.view)
+            return pixi
+        },
+        run(config, ruleSet) {
+            if(this.pixi && this.pixi.stage){
+                this.pixi.destroy({children: true, texture: true, baseTexture: true, })
+                this.pixi = null
             }
             if(config && config.data && config.data.app){
-                this.runCellularAutomata(this.stage(config.data), config, ruleSet)
+                this.pixi = this.stagePixi(config.data)
+                this.runCellularAutomata(this.pixi, config, ruleSet)
             }
         },
         runCellularAutomata(app, config, ruleSet) {

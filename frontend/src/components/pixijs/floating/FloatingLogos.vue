@@ -1,6 +1,6 @@
 <template>
   <div >
-      <div :id="pixiAppId || 'pixi'"></div>
+      <div id='pixi'></div>
     <!-- <v-card :width="400" color="black">
       Welcome to the Groupeffect Home Page
     </v-card> -->
@@ -8,9 +8,9 @@
 </template>
 <script>
 import PixiMixin from "@/mixins/pixi/PixiMixin.js"
-import RisingWaves from '@/mixins/pixi/RisingWaves.js'
-import RisingLogos from '@/mixins/pixi/RisingLogos.js'
-import TextMask from '@/mixins/pixi/TextMask.js'
+import RisingWaves from '@/components/pixijs/floating/RisingWaves.js'
+import RisingLogos from '@/components/pixijs/floating/RisingLogos.js'
+import TextMask from '@/components/pixijs/floating/TextMask.js'
 export default {
   name: 'FloatingLogos',
   mixins:[PixiMixin, RisingWaves, RisingLogos, TextMask],
@@ -24,7 +24,22 @@ export default {
   },
   mounted(){
     
-    this.loadPixiContent(this.stage())
+    this.loadPixiContent(this.stage({
+      id:"pixi",
+      app:{
+            "antialias": true,
+            "transparent": false,
+            "resolution": 1,
+            "background": "#000000",
+            "eventMode": "static",
+            "eventFeatures": {
+                "move": false,
+                "globalMove": false,
+                "click": false,
+                "wheel": false
+            }
+        }
+    }))
   }
 }
 </script>
