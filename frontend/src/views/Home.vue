@@ -1,38 +1,54 @@
 <template>
-  <div >
-      <div :id="pixiAppId"></div>
-    <!-- <v-card :width="400" color="black">
-      Welcome to the Groupeffect Home Page
-    </v-card> -->
+  <div>
+    <v-row align="center" class="text-center">
+      <v-col cols="2" v-for='(e,k) in createCards()' :key='k'>
+      
+        <CellularView :configProp="e" :ruleSetProp="e.ruleSet"></CellularView>
+      </v-col>
+    </v-row>
   </div>
 </template>
 <script>
+import { useRepo } from 'pinia-orm'
+import Internal from '@/models/Internal'
+import CellularView from '@/components/pixijs/automata/CellularView.vue'
+import automataConfig from "@/assets/configs/automata.json"
 import PixiMixin from "@/mixins/pixi/PixiMixin.js"
-import RisingWaves from '@/mixins/pixi/RisingWaves.js'
-import RisingLogos from '@/mixins/pixi/RisingLogos.js'
-import TextMask from '@/mixins/pixi/TextMask.js'
 export default {
   name: 'HomeView',
-  mixins:[PixiMixin, RisingWaves, RisingLogos, TextMask],
-  methods:{
-    loadPixiContent(pixi){
-            // this.drawFibonacciCircles(pixi)
-            this.drawWave(pixi)
-            this.drawLogoWave(pixi)
-            this.drawTextMask(pixi)
-        }
+  props: {},
+  mixins:[PixiMixin],
+  components: {CellularView},
+  data: ()=>({
+    automataConfig: automataConfig
+  }),
+  computed: {
+    internal(){
+      return useRepo(Internal).find('graphics')
+    },
+
+  },
+
+  methods: {
+
+    createCards(amount=15, offset=100) {
+      return Array.from(Array(amount).keys()).map((e)=>({
+        ...this.automataConfig.small, id:`auto-${e}`, element:{...this.automataConfig.small.element, color: this.rC()}, ruleSet: this.ruleSet(e+offset)
+      }))
+    },
+
+    ruleSet(number){
+      return {
+          neighborIndexes: ["000","001","010","011","100","101","110","111"],
+          mapping: this.numberTo8BitArray(number),
+      }
+    }
   },
   mounted(){
-    
-    this.loadPixiContent(this.stage())
+    // const config = useRepo(Internal).find('graphics')
+
   }
 }
 </script>
-<style scoped>
-#pixi{
-  z-index: -1;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-}
+<style>
 </style>

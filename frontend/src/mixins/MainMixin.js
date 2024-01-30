@@ -1,5 +1,5 @@
 import { useRepo } from "pinia-orm"
-import Internal from "@/models/Internal"
+import Internal from "@/models/Internal.js"
 export default {
     name: "MainMixin",
     computed: {

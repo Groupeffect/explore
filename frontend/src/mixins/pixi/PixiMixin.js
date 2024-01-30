@@ -3,13 +3,12 @@ export default {
     name: 'PixiMixin',
     data: ()=>({
         tickers: {},
-        pixiAppId: "pixi",
         pixi: null,
         appConfig:{
             antialias: true,
             // transparent: true,
             resolution: 1,
-            background: "rgb(0,0,00)",
+            background: "rgb(0,0,0)",
             eventMode: 'static',
             eventFeatures: {
                 move: true,
@@ -28,21 +27,21 @@ export default {
         },
         rC(){
             // random color
-            var letters = '0123456789ABCDEF';
-            var color = '#';
+            var letters = '0123456789ABCDEF'
+            var color = '#'
             for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
+                color += letters[Math.floor(Math.random() * 16)]
             }
-            return color;
+            return color
         },
         setTicker(name){
             this.tickers[name] = new Ticker()
             return this.tickers[name]
         },
-        stage(){
-            const pixiDiv = document.getElementById(this.pixiAppId)
+        stage(config){
+            const pixiDiv = document.getElementById(config.id)
             const pixiAppConfig = {
-                ...this.appConfig,
+                ...config.app,
                 resizeTo: pixiDiv,
                 autoResize: true,
             }
@@ -51,15 +50,51 @@ export default {
             this.pixi = pixi
             return pixi
         },
+        destroyPixiApp(app) {
+            app.destroy({children: true, texture: true, baseTexture: true, })
+            // // Destroy children, this is recursive to all children's children
+            // app.stage.destroy({children: true, texture: true, baseTexture: true})
+            
+            // // Destroy the renderer and plugins
+            // app.renderer.destroy()
+            
+            // // Remove the view (canvas) from the DOM if it's there
+            // if (app.view.parentNode) {
+            //     app.view.parentNode.removeChild(app.view)
+            // }
+            
+            // // Optional: Set the reference to the app to null to ensure garbage collection
+            app = null
+        },
+        numberTo8BitArray(number) {
+            const bits = new Array(8).fill(0) // Initialize an array of 8 elements
+            
+            for (let i = 0; i < 8; i++) {
+                bits[7 - i] = (number & 1) ? 1 : 0 // Extract the rightmost bit and assign
+                number >>= 1 // Shift right by one position
+            }
+            
+            return bits // Return the array
+        },
+        numberTo3BitArray(number) {
+            const bits = new Array(3).fill(0) // Initialize an array of 3 elements
+            
+            for (let i = 0; i < 3; i++) {
+                bits[2 - i] = (number & 1) ? 1 : 0 // Extract the rightmost bit and assign
+                number >>= 1 // Shift right by one position
+            }
+            
+            return bits // Return the array
+        },
 
     },
     beforeRouteLeave (to, from , next) {
-        this.$destroyPixiApp(this.pixi)
+        this.destroyPixiApp(this.pixi)
         this.pixi = null
         next()
     },
     beforeRouteEnter (to, from , next) {
-        this.$destroyPixiApp(this.pixi)
+        this.destroyPixiApp(this.pixi)
         this.pixi = null
         next()
     },

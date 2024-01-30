@@ -12,16 +12,17 @@
     "@mdi/font": "7.0.96",
     "pinia": "^2.0.23",
     "pinia-orm": "^1.7.2",
+    "pixi.js": "^7.3.2",
     "roboto-fontface": "*",
     "vue": "^3.2.0",
     "vue-router": "^4.0.0",
-    "vuetify": "^3.0.0",
-    "pixi.js": "^7.3.2"
+    "vuetify": "^3.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
+    "sass": "^1.70.0",
     "unplugin-fonts": "^1.0.3",
     "vite": "^4.2.0",
     "vite-plugin-vuetify": "^1.0.0"
