@@ -27,8 +27,8 @@ export default {
         $host(){
             // TODO 
             return process.env.NODE_ENV === 'production'
-            ? ''
-            : 'http://localhost'
+            ? 'https://groupeffect.github.io/explore/'
+            : 'http://localhost:8008'
         },
         $api(){
             return this.$axios
